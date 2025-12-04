@@ -1,0 +1,5 @@
+Flask
+flask-socketio
+yt-dlp
+gunicorn
+simple-websocket
