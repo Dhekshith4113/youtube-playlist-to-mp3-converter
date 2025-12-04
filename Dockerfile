@@ -15,6 +15,9 @@ COPY . .
 # Install Python libraries
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Run the app using Gunicorn (Production Server)
-# This allows it to handle multiple users better than standard python
-CMD ["gunicorn", "-k", "threading", "-w", "1", "app:app", "-b", "0.0.0.0:10000"]
+# Run the app using Gunicorn
+# FIX DETAILS:
+# -k gthread: Uses threads (correct name)
+# --threads 4: Allows 4 concurrent threads
+# --timeout 600: Allows 10 minutes for a request (crucial for long playlists)
+CMD ["gunicorn", "-k", "gthread", "--threads", "4", "--timeout", "600", "-w", "1", "app:app", "-b", "0.0.0.0:10000"]
